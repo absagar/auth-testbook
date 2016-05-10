@@ -1,7 +1,7 @@
 'use strict';
 
-System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage'], function (_export, _context) {
-  var extend, HeaderSecondary, SettingsPage, domain;
+System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage', 'flarum/components/LogInModal'], function (_export, _context) {
+  var extend, HeaderSecondary, SettingsPage, LogInModal, domain, loginPath, signupPath;
   return {
     setters: [function (_flarumExtend) {
       extend = _flarumExtend.extend;
@@ -9,25 +9,28 @@ System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/compo
       HeaderSecondary = _flarumComponentsHeaderSecondary.default;
     }, function (_flarumComponentsSettingsPage) {
       SettingsPage = _flarumComponentsSettingsPage.default;
+    }, function (_flarumComponentsLogInModal) {
+      LogInModal = _flarumComponentsLogInModal.default;
     }],
     execute: function () {
-      domain = "http://local.testbook.com";
+      domain = window.location.hostname;
+      loginPath = domain + "/login?tile=login&redirect_url=" + window.location.pathname;
+      signupPath = domain + "/login?tile=signup&redirect_url=" + window.location.pathname;
+
 
       app.initializers.add('sagar23jan-auth-testbook', function () {
         extend(HeaderSecondary.prototype, 'items', function (items) {
           if (items.has('logIn')) {
-            var fullPath = domain + "/login?tile=login&redirect_url=" + window.location.pathname;
             items.replace('logIn', m(
               'a',
-              { href: fullPath, className: 'Button Button--link' },
+              { href: loginPath, className: 'Button Button--link' },
               'LogIn'
             ));
           }
           if (items.has('signUp')) {
-            var fullPath = domain + "/login?tile=signup&redirect_url=" + window.location.pathname;
             items.replace('signUp', m(
               'a',
-              { href: fullPath, className: 'Button Button--link' },
+              { href: signupPath, className: 'Button Button--link' },
               'SignUp'
             ));
           }
@@ -37,6 +40,34 @@ System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/compo
             items.remove('account');
           }
         });
+        LogInModal.prototype.content = function () {
+          return [m(
+            'div',
+            { className: 'Modal-body' },
+            m(
+              'div',
+              { className: 'Form-group' },
+              m(
+                'a',
+                { href: loginPath, className: 'FormControl' },
+                'LogIn'
+              )
+            ),
+            m(
+              'div',
+              { className: 'Form-group' },
+              m(
+                'a',
+                { href: signupPath, className: 'FormControl' },
+                'SignUp'
+              )
+            )
+          ), m(
+            'div',
+            { className: 'Modal-footer' },
+            'You need to have a Testbook account in order to participate here.'
+          )];
+        };
       });
     }
   };
