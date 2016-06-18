@@ -1,6 +1,8 @@
 'use strict';
 
-System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage', 'flarum/components/LogInModal'], function (_export, _context) {
+System.register('absagar/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage', 'flarum/components/LogInModal'], function (_export, _context) {
+  "use strict";
+
   var extend, HeaderSecondary, SettingsPage, LogInModal, domain, loginPath, signupPath;
   return {
     setters: [function (_flarumExtend) {
@@ -13,12 +15,12 @@ System.register('sagar23jan/auth-testbook/main', ['flarum/extend', 'flarum/compo
       LogInModal = _flarumComponentsLogInModal.default;
     }],
     execute: function () {
-      domain = window.location.hostname;
+      domain = window.location.protocol + "//" + window.location.hostname;
       loginPath = domain + "/login?tile=login&redirect_url=" + window.location.pathname;
       signupPath = domain + "/login?tile=signup&redirect_url=" + window.location.pathname;
 
 
-      app.initializers.add('sagar23jan-auth-testbook', function () {
+      app.initializers.add('absagar-auth-testbook', function () {
         extend(HeaderSecondary.prototype, 'items', function (items) {
           if (items.has('logIn')) {
             items.replace('logIn', m(

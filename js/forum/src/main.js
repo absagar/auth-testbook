@@ -3,11 +3,11 @@ import HeaderSecondary from 'flarum/components/HeaderSecondary';
 import SettingsPage from 'flarum/components/SettingsPage';
 import LogInModal from 'flarum/components/LogInModal';
 
-var domain = window.location.hostname;
+var domain = window.location.protocol + "//" +window.location.hostname;
 var loginPath = domain + "/login?tile=login&redirect_url=" + window.location.pathname;
 var signupPath = domain + "/login?tile=signup&redirect_url=" + window.location.pathname;
 
-app.initializers.add('sagar23jan-auth-testbook', function() {
+app.initializers.add('absagar-auth-testbook', function() {
   extend(HeaderSecondary.prototype, 'items', function(items) {
     if (items.has('logIn')){
       items.replace('logIn', <a href={loginPath} className="Button Button--link">LogIn</a>);

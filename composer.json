@@ -1,5 +1,5 @@
 {
-    "name": "sagar23jan/auth-testbook",
+    "name": "absagar/auth-testbook",
     "description": "Removes flarum auth system and uses Testbook",
     "type": "flarum-extension",
     "require": {

@@ -2,7 +2,7 @@ var sagar = require('flarum-gulp');
 
 sagar({
 	modules: {
-		'sagar23jan/auth-testbook' : [
+		'absagar/auth-testbook' : [
 			'src/**/*.js'
 		]
 	}
