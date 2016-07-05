@@ -1,4 +1,5 @@
 import { extend } from 'flarum/extend';
+import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import HeaderSecondary from 'flarum/components/HeaderSecondary';
 import SettingsPage from 'flarum/components/SettingsPage';
 import LogInModal from 'flarum/components/LogInModal';
@@ -8,6 +9,11 @@ var loginPath = domain + "/login?tile=login&redirect_url=" + window.location.pat
 var signupPath = domain + "/login?tile=signup&redirect_url=" + window.location.pathname;
 
 app.initializers.add('absagar-auth-testbook', function() {
+
+  extend(HeaderPrimary.prototype, 'items', function(items) {
+      items.add('discuss', <a href="/discuss" className="Button Button--flat">Discuss</a>);
+  });
+
   extend(HeaderSecondary.prototype, 'items', function(items) {
     if (items.has('logIn')){
       items.replace('logIn', <a href={loginPath} className="Button Button--link">LogIn</a>);

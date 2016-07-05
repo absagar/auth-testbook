@@ -1,12 +1,14 @@
 'use strict';
 
-System.register('absagar/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage', 'flarum/components/LogInModal'], function (_export, _context) {
+System.register('absagar/auth-testbook/main', ['flarum/extend', 'flarum/components/HeaderPrimary', 'flarum/components/HeaderSecondary', 'flarum/components/SettingsPage', 'flarum/components/LogInModal'], function (_export, _context) {
   "use strict";
 
-  var extend, HeaderSecondary, SettingsPage, LogInModal, domain, loginPath, signupPath;
+  var extend, HeaderPrimary, HeaderSecondary, SettingsPage, LogInModal, domain, loginPath, signupPath;
   return {
     setters: [function (_flarumExtend) {
       extend = _flarumExtend.extend;
+    }, function (_flarumComponentsHeaderPrimary) {
+      HeaderPrimary = _flarumComponentsHeaderPrimary.default;
     }, function (_flarumComponentsHeaderSecondary) {
       HeaderSecondary = _flarumComponentsHeaderSecondary.default;
     }, function (_flarumComponentsSettingsPage) {
@@ -21,6 +23,15 @@ System.register('absagar/auth-testbook/main', ['flarum/extend', 'flarum/componen
 
 
       app.initializers.add('absagar-auth-testbook', function () {
+
+        extend(HeaderPrimary.prototype, 'items', function (items) {
+          items.add('discuss', m(
+            'a',
+            { href: '/discuss', className: 'Button Button--flat' },
+            'Discuss'
+          ));
+        });
+
         extend(HeaderSecondary.prototype, 'items', function (items) {
           if (items.has('logIn')) {
             items.replace('logIn', m(
