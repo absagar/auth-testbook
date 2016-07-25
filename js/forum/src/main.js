@@ -3,6 +3,8 @@ import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import HeaderSecondary from 'flarum/components/HeaderSecondary';
 import SettingsPage from 'flarum/components/SettingsPage';
 import LogInModal from 'flarum/components/LogInModal';
+import AvatarEditor from 'flarum/components/AvatarEditor'
+
 
 var domain = window.location.protocol + "//" +window.location.hostname;
 var loginPath = domain + "/login?tile=login&redirect_url=" + window.location.pathname;
@@ -27,6 +29,12 @@ app.initializers.add('absagar-auth-testbook', function() {
       items.remove('account');
     }
   });
+
+
+  extend(AvatarEditor.prototype, 'view', function(obj) {
+      obj.children[1].attrs.style="visibility: hidden";
+  });
+
   LogInModal.prototype.content = function(){
     return([
       <div className="Modal-body">
