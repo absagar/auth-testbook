@@ -3,7 +3,8 @@ import HeaderPrimary from 'flarum/components/HeaderPrimary';
 import HeaderSecondary from 'flarum/components/HeaderSecondary';
 import SettingsPage from 'flarum/components/SettingsPage';
 import LogInModal from 'flarum/components/LogInModal';
-import AvatarEditor from 'flarum/components/AvatarEditor'
+import AvatarEditor from 'flarum/components/AvatarEditor';
+import avatar from 'flarum/helpers/avatar';
 
 
 var domain = window.location.protocol + "//" +window.location.hostname;
@@ -30,10 +31,14 @@ app.initializers.add('absagar-auth-testbook', function() {
     }
   });
 
-
-  extend(AvatarEditor.prototype, 'view', function(obj) {
-      obj.children[1].attrs.style="visibility: hidden";
-  });
+  AvatarEditor.prototype.view = function() {
+    const user = this.props.user;
+    return (
+      <div className={'AvatarEditor Dropdown ' + this.props.className + (this.loading ? ' loading' : '')}>
+        {avatar(user)}
+      </div>
+    );
+  };
 
   LogInModal.prototype.content = function(){
     return([
